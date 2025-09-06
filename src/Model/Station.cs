@@ -11,8 +11,6 @@ namespace stationService.src.Model
         [Key]
         public int ID { get; set; }
 
-        public string UserID { get; set; } = string.Empty;
-
         public string NameStation { get; set; } = string.Empty;
 
         public string Location { get; set; } = string.Empty;
