@@ -1,4 +1,4 @@
-#Conecxion a docker para pruebas 
+#Conecxion a docker para testing 
 services:
   mysql:
     image: mysql:8.0
