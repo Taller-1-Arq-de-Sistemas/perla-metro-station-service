@@ -3,9 +3,9 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_USER: cochayuyo
-      MYSQL_PASSWORD: contrasena
-      MYSQL_DATABASE: StationServiceBD
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: rootpassword  
     ports:
       - "3307:3306"
