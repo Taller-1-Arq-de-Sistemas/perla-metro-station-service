@@ -10,6 +10,6 @@ namespace stationService.src.Interface
     {
         public Task<ResponseStationDto> CreateStation(CreateStationDto request);
 
-        public Task<List<ResponseStationDto>> GetAllStations();
+        public Task<List<ResponseStationDto>> GetStations();
     }
 }

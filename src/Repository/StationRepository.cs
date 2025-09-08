@@ -47,8 +47,9 @@ namespace stationService.src.Repository
             return response;
         }
 
+
         //Get de estaciones
-        public async Task<List<ResponseStationDto>> GetAllStations()
+        public async Task<List<ResponseStationDto>> GetStations()
         {
             var Stations = await _testingContext.Stations.Select(s => s.ToStationResponse()).ToListAsync();
 
@@ -65,7 +66,7 @@ namespace stationService.src.Repository
 
 
         //Get by Id de estaciones
-        //TODO
+        
 
 
 

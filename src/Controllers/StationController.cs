@@ -51,11 +51,11 @@ namespace stationService.src.Controllers
         }
 
         [HttpGet("Stations")]
-        public async Task<IActionResult> GetAllStations()
+        public async Task<IActionResult> GetStations()
         {
             try
             {
-                var Stations = await _stationRepository.GetAllStations();
+                var Stations = await _stationRepository.GetStations();
 
                 var response = new
                 {
