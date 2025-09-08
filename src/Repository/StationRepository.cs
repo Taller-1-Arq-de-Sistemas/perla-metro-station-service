@@ -27,7 +27,7 @@ namespace stationService.src.Repository
         public async Task<ResponseStationDto> CreateStation(CreateStationDto request)
         {
 
-            var exist = await _testingContext.Stations.FirstOrDefaultAsync(s => s.NameStation == request.NameStation && s.Location == request.Location && s.Type == request.Type);
+            var exist = await _testingContext.Stations.FirstOrDefaultAsync(s => s.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() && s.Location.ToLower().Trim() == request.Location.ToLower().Trim());
 
             if (exist != null)
             {
