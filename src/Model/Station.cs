@@ -9,7 +9,7 @@ namespace stationService.src.Model
     public class Station
     {
         [Key]
-        public int ID { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
 
         public string NameStation { get; set; } = string.Empty;
 
