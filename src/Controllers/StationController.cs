@@ -95,6 +95,26 @@ namespace stationService.src.Controllers
             }
         }
 
+
+        //Editar Station TODO
+
+        [HttpPut("DeleteStation")]
+        public async Task<IActionResult> SoftDelete(Guid ID)
+        {
+            try
+            {
+                await _stationRepository.DisabledEnabledStation(ID);
+
+                return Ok(new { message = "Estado de estacion cambiado correctamente" });
+
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+        }
+
         
 
 

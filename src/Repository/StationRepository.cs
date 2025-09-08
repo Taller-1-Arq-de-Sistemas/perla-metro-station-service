@@ -52,6 +52,7 @@ namespace stationService.src.Repository
         public async Task<List<ResponseStationDto>> GetStations()
         {
 
+            //Buscar en la base de datos de prueba
             var Stations = await _testingContext.Stations.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
@@ -64,11 +65,10 @@ namespace stationService.src.Repository
 
 
 
-
-
         //Get by Id de estaciones
         public async Task<ResponseStationDto> GetStationById(Guid ID)
         {
+            //Buscar en la base de datos de prueba
             var Station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
 
             if (Station == null)
@@ -79,9 +79,9 @@ namespace stationService.src.Repository
             var response = Station.ToStationResponse();
 
             return response;
-     
+
         }
-        
+
 
 
 
@@ -90,7 +90,23 @@ namespace stationService.src.Repository
 
 
 
-        //SoftDelete (Desactivar/Activar)
+        //SoftDelete (Desactivar/Activar), solo administradores
+        public async Task DisabledEnabledStation(Guid ID)
+        {
+            var Station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID);
+
+            if (Station == null)
+            {
+                throw new Exception("Error. Estacion no encontrada");
+            }
+
+            //Actualizar en base de datos de prueba
+            Station.State = !Station.State;
+            _testingContext.Update(Station);
+            await _testingContext.SaveChangesAsync();
+        }
+
+
 
     }
 }
