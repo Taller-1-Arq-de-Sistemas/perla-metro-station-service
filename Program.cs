@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using stationService.src.Data;
 using DotNetEnv;
+using stationService.src.Interface;
+using stationService.src.Repository;
 
 Env.Load();
 
@@ -18,7 +20,7 @@ string ConnectionString = Environment.GetEnvironmentVariable("StationConnectionS
 builder.Services.AddDbContext<TestingDBContext>(options => options.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString)));
 
 //Repositorio
-//TODO: agregar
+builder.Services.AddScoped<IStationRepository, StationRepository>();
 
 
 //app builder
@@ -32,6 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers(); 
 app.Run();
 
 
