@@ -9,5 +9,7 @@ namespace stationService.src.Interface
     public interface IStationRepository
     {
         public Task<ResponseStationDto> CreateStation(CreateStationDto request);
+
+        public Task<List<ResponseStationDto>> GetAllStations();
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using stationService.src.Data;
 using stationService.src.Interface;
 using stationService.src.Mapers;
@@ -23,8 +24,6 @@ namespace stationService.src.Repository
         }
 
         //Crear Estacion
-
-        //TODO
         public async Task<ResponseStationDto> CreateStation(CreateStationDto request)
         {
             var StationRequest = new Station
@@ -47,6 +46,35 @@ namespace stationService.src.Repository
             var response = StationRequest.ToStationResponse();
             return response;
         }
+
+        //Get de estaciones
+        public async Task<List<ResponseStationDto>> GetAllStations()
+        {
+            var Stations = await _testingContext.Stations.Select(s => s.ToStationResponse()).ToListAsync();
+
+            if (Stations.Count == 0)
+            {
+                throw new Exception("Error. No se encontraron Estaciones");
+            }
+
+            return Stations;
+        }
         
+
+
+
+
+        //Get by Id de estaciones
+        //TODO
+
+
+
+        //Edicion de estaciones
+        //TODO
+
+
+
+        //SoftDelete (Desactivar/Activar)
+
     }
 }

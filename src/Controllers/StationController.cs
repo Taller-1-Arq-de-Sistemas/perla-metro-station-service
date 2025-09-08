@@ -34,11 +34,12 @@ namespace stationService.src.Controllers
 
                 var result = await _stationRepository.CreateStation(request);
 
-                return Ok(new {
-                message = "Estacion creada con exito",
-                Station = result
+                return Ok(new
+                {
+                    message = "Estacion creada con exito",
+                    Station = result
 
-            });
+                });
 
             }
             catch (Exception e)
@@ -48,6 +49,29 @@ namespace stationService.src.Controllers
 
             }
         }
+
+        [HttpGet("Stations")]
+        public async Task<IActionResult> GetAllStations()
+        {
+            try
+            {
+                var Stations = await _stationRepository.GetAllStations();
+
+                var response = new
+                {
+                    message = "Lista de estaciones obtenida exitosamente",
+                    Estaciones = Stations
+                };
+
+                return Ok(response);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+        }
+        
 
 
 
