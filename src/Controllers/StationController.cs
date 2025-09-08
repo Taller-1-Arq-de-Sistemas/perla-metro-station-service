@@ -71,6 +71,30 @@ namespace stationService.src.Controllers
                 return StatusCode(500, new { message = e.Message });
             }
         }
+
+        [HttpGet("Station")]
+        public async Task<IActionResult> GetStationByID(Guid ID)
+        {
+            try
+            {
+                var Station = await _stationRepository.GetStationById(ID);
+
+                var response = new
+                {
+                    message = "Estacion obtenido con exito",
+                    Estacion = Station
+                };
+
+                return Ok(response);
+
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+        }
+
         
 
 

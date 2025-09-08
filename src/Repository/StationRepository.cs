@@ -51,6 +51,7 @@ namespace stationService.src.Repository
         //Get de estaciones
         public async Task<List<ResponseStationDto>> GetStations()
         {
+
             var Stations = await _testingContext.Stations.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
@@ -60,12 +61,26 @@ namespace stationService.src.Repository
 
             return Stations;
         }
-        
+
 
 
 
 
         //Get by Id de estaciones
+        public async Task<ResponseStationDto> GetStationById(Guid ID)
+        {
+            var Station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
+
+            if (Station == null)
+            {
+                throw new Exception("Error. Estacion no encontrada");
+            }
+
+            var response = Station.ToStationResponse();
+
+            return response;
+     
+        }
         
 
 
