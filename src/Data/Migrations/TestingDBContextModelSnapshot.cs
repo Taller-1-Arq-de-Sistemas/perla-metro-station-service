@@ -28,9 +28,6 @@ namespace stationService.src.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -38,6 +35,9 @@ namespace stationService.src.Data.Migrations
                     b.Property<string>("NameStation")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Type")
                         .IsRequired()

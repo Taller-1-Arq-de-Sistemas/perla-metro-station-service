@@ -18,6 +18,7 @@ namespace stationService.src.Model
         [RegularExpression("Origen|Destino|Intermedia", ErrorMessage = "El tipo debe ser Origen, Destino o Intermedia")]
         public string Type { get; set; } = string.Empty;
 
-        public bool IsActive { get; set; } 
+        //Dos estados: true = Activa, false = Inactiva
+        public bool State { get; set; } 
     }
 }

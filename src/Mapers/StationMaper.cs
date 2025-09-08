@@ -17,7 +17,7 @@ namespace stationService.src.Mapers
                 NameStation = station.NameStation,
                 Location = station.Location,
                 Type = station.Type,
-                IsActive = station.IsActive
+                State = station.State
             };
             
 

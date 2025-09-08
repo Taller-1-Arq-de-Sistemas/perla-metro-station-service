@@ -34,7 +34,7 @@ namespace stationService.src.Repository
                 NameStation = request.NameStation,
                 Location = request.Location,
                 Type = request.Type,
-                IsActive = true
+                State = true
 
             };
 

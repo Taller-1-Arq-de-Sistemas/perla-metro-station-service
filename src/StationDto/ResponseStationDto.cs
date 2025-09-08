@@ -15,6 +15,6 @@ namespace stationService.src.StationDto
 
         public string Type { get; set; } = string.Empty;
 
-        public bool IsActive { get; set; } 
+        public bool State { get; set; } 
     }
 }
