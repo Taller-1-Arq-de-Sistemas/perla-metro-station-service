@@ -19,8 +19,9 @@ namespace stationService.src.Mapers
                 Type = station.Type,
                 State = station.State
             };
-            
+
 
         }
+    
     }
 }

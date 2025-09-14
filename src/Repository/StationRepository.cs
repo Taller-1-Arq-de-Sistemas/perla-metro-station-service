@@ -31,7 +31,15 @@ namespace stationService.src.Repository
 
             if (exist != null)
             {
-                throw new Exception("Error. Estacion ya existe");
+                if (exist.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim())
+                {
+                    throw new Exception("Error. Ya existe una estación con este nombre");
+
+                }
+                else if (exist.Location.ToLower().Trim() == request.Location.ToLower().Trim())
+                {
+                    throw new Exception("Error. Ya existe una estación con esta Ubicacion");     
+                }
             }
 
             var StationRequest = new Station
@@ -94,8 +102,41 @@ namespace stationService.src.Repository
 
 
         //Edicion de estaciones
-        //TODO
+        public async Task EditStation(Guid ID, EditStationDto request)
+        {
+            var station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID);
 
+            if (station == null)
+            {
+                throw new Exception("Error. Estaciono no encontrada");
+            }
+
+            var Name = request.NameStation.ToLower().Trim();
+            var Location = request.Location.ToLower().Trim();
+
+            var exist = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID != ID && (s.NameStation.ToLower().Trim() == Name || s.Location.ToLower().Trim() == Location));
+
+            if (exist != null)
+            {
+                if (exist.NameStation.ToLower().Trim() == Name)
+                {
+                    throw new Exception("Error. Ya existe una estación con este nombre");
+
+                }
+                else if (exist.Location.ToLower().Trim() == Location)
+                {
+                    throw new Exception("Error. Ya existe una estación con esta Ubicacion");
+                }
+            }
+
+
+            //actualizar atributos
+            station.NameStation = request.NameStation;
+            station.Location = request.Location;
+            station.Type = request.Type;
+            
+            await _testingContext.SaveChangesAsync();
+        }
 
 
         //SoftDelete (Desactivar/Activar), solo administradores

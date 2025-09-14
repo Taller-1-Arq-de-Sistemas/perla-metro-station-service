@@ -22,6 +22,7 @@ namespace stationService.src.Controllers
         }
 
 
+
         [HttpPost("CreateStation")]
         public async Task<IActionResult> CreateStation(CreateStationDto request)
         {
@@ -49,6 +50,7 @@ namespace stationService.src.Controllers
 
             }
         }
+
 
         [HttpGet("Stations")]
         public async Task<IActionResult> GetStations()
@@ -96,9 +98,8 @@ namespace stationService.src.Controllers
         }
 
 
-        //Editar Station TODO
 
-        [HttpPut("DeleteStation")]
+        [HttpPut("ChangeStateStation")]
         public async Task<IActionResult> SoftDelete(Guid ID)
         {
             try

@@ -7,7 +7,7 @@ namespace stationService.src.StationDto
 {
     public class ResponseStationDto
     {
-         public Guid ID { get; set; }
+        public Guid ID { get; set; }
 
         public string NameStation { get; set; } = string.Empty;
 
