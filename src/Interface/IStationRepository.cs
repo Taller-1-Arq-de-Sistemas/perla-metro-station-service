@@ -14,6 +14,8 @@ namespace stationService.src.Interface
 
         public Task<ResponseStationDto> GetStationById(Guid ID);
 
+        public Task EditStation(Guid ID, EditStationDto request);
+
         public Task DisabledEnabledStation(Guid ID);
     }
 }

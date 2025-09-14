@@ -97,6 +97,32 @@ namespace stationService.src.Controllers
             }
         }
 
+        [HttpPut("EditStation")]
+        public async Task<IActionResult> EditStation(Guid ID, EditStationDto request)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                await _stationRepository.EditStation(ID, request);
+
+                return Ok(new
+                {
+                    message = "Estacion Editada con exito",
+
+                });
+
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, new { message = e.Message });
+
+            }
+        }
 
 
         [HttpPut("ChangeStateStation")]
