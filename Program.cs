@@ -15,9 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-//Builder DBcontex (TODO: cambiar a DBContext de produccion [crear DBContexto de produccion])
+//Builder DBcontex 
 string ConnectionString = Environment.GetEnvironmentVariable("StationConnectionString") ?? throw new InvalidOperationException("StationConnectionString no encontrado.");
-builder.Services.AddDbContext<TestingDBContext>(options => options.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString)));
+builder.Services.AddDbContext<DBContext>(options => options.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString)));
 
 //Repositorio
 builder.Services.AddScoped<IStationRepository, StationRepository>();

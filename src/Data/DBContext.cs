@@ -7,12 +7,11 @@ using stationService.src.Model;
 
 namespace stationService.src.Data
 {
-    public class TestingDBContext : DbContext
+    public class DBContext : DbContext
     {
-        public TestingDBContext(DbContextOptions<TestingDBContext> options) : base(options)
+        public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
         }
-
 
         public DbSet<Station> Stations { get; set; } = null!;
     }

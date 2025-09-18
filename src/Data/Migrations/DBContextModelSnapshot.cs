@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using stationService.src.Data;
 
@@ -11,12 +10,10 @@ using stationService.src.Data;
 
 namespace stationService.src.Data.Migrations
 {
-    [DbContext(typeof(TestingDBContext))]
-    [Migration("20250908171109_NewMigrations")]
-    partial class NewMigrations
+    [DbContext(typeof(DBContext))]
+    partial class DBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

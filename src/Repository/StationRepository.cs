@@ -16,18 +16,18 @@ namespace stationService.src.Repository
     public class StationRepository : IStationRepository
     {
         //DbContext dedicado para operaciones de testing
-        private readonly TestingDBContext _testingContext;
+        private readonly DBContext _context;
 
-        public StationRepository(TestingDBContext testingContext)
+        public StationRepository(DBContext context)
         {
-            _testingContext = testingContext;
+            _context = context;
         }
 
         //Crear Estacion
         public async Task<ResponseStationDto> CreateStation(CreateStationDto request)
         {
 
-            var exist = await _testingContext.Stations.FirstOrDefaultAsync(s => s.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() || s.Location.ToLower().Trim() == request.Location.ToLower().Trim());
+            var exist = await _context.Stations.FirstOrDefaultAsync(s => s.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() || s.Location.ToLower().Trim() == request.Location.ToLower().Trim());
 
             if (exist != null)
             {
@@ -55,8 +55,8 @@ namespace stationService.src.Repository
 
 
             // Crear en la base de datos de prueba y guardar cambios
-            await _testingContext.Stations.AddAsync(StationRequest);
-            await _testingContext.SaveChangesAsync();
+            await _context.Stations.AddAsync(StationRequest);
+            await _context.SaveChangesAsync();
 
             //Response
             var response = StationRequest.ToStationResponse();
@@ -69,7 +69,7 @@ namespace stationService.src.Repository
         {
 
             //Buscar en la base de datos de prueba
-            var Stations = await _testingContext.Stations.Select(s => s.ToStationResponse()).ToListAsync();
+            var Stations = await _context.Stations.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
             {
@@ -85,7 +85,7 @@ namespace stationService.src.Repository
         public async Task<ResponseStationDto> GetStationById(Guid ID)
         {
             //Buscar en la base de datos de prueba
-            var Station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
+            var Station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
 
             if (Station == null)
             {
@@ -104,7 +104,7 @@ namespace stationService.src.Repository
         //Edicion de estaciones
         public async Task EditStation(Guid ID, EditStationDto request)
         {
-            var station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID);
+            var station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID);
 
             if (station == null)
             {
@@ -114,7 +114,7 @@ namespace stationService.src.Repository
             var Name = request.NameStation.ToLower().Trim();
             var Location = request.Location.ToLower().Trim();
 
-            var exist = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID != ID && (s.NameStation.ToLower().Trim() == Name || s.Location.ToLower().Trim() == Location));
+            var exist = await _context.Stations.FirstOrDefaultAsync(s => s.ID != ID && (s.NameStation.ToLower().Trim() == Name || s.Location.ToLower().Trim() == Location));
 
             if (exist != null)
             {
@@ -135,14 +135,14 @@ namespace stationService.src.Repository
             station.Location = request.Location;
             station.Type = request.Type;
             
-            await _testingContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
 
         //SoftDelete (Desactivar/Activar), solo administradores
         public async Task DisabledEnabledStation(Guid ID)
         {
-            var Station = await _testingContext.Stations.FirstOrDefaultAsync(s => s.ID == ID);
+            var Station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID);
 
             if (Station == null)
             {
@@ -151,8 +151,8 @@ namespace stationService.src.Repository
 
             //Actualizar en base de datos de prueba
             Station.State = !Station.State;
-            _testingContext.Update(Station);
-            await _testingContext.SaveChangesAsync();
+            _context.Update(Station);
+            await _context.SaveChangesAsync();
         }
 
 
