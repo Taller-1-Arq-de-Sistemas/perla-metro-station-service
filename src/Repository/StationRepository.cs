@@ -31,6 +31,12 @@ namespace stationService.src.Repository
 
             if (exist != null)
             {
+
+                if (exist.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() && exist.Location.ToLower().Trim() == request.Location.ToLower().Trim())
+                {
+                  throw new Exception("Error. Estación ya existente");  
+                }
+                
                 if (exist.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim())
                 {
                     throw new Exception("Error. Ya existe una estación con este nombre");
@@ -38,7 +44,7 @@ namespace stationService.src.Repository
                 }
                 else if (exist.Location.ToLower().Trim() == request.Location.ToLower().Trim())
                 {
-                    throw new Exception("Error. Ya existe una estación con esta Ubicacion");     
+                    throw new Exception("Error. Ya existe una estación con esta Ubicacion");
                 }
             }
 
