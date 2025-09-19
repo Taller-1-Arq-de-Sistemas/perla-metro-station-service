@@ -74,7 +74,7 @@ namespace stationService.src.Controllers
             }
         }
 
-        [HttpGet("Station")]
+        [HttpGet("{ID}")]
         public async Task<IActionResult> GetStationByID(Guid ID)
         {
             try
