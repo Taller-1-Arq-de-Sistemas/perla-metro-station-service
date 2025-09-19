@@ -97,7 +97,7 @@ namespace stationService.src.Controllers
             }
         }
 
-        [HttpPut("EditStation")]
+        [HttpPut("EditStation/{ID}")]
         public async Task<IActionResult> EditStation(Guid ID, EditStationDto request)
         {
             try
@@ -125,7 +125,7 @@ namespace stationService.src.Controllers
         }
 
 
-        [HttpPut("ChangeStateStation")]
+        [HttpPut("ChangeStateStation/{ID}")]
         public async Task<IActionResult> SoftDelete(Guid ID)
         {
             try
