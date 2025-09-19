@@ -60,7 +60,7 @@ namespace stationService.src.Repository
             };
 
 
-            // Crear en la base de datos de prueba y guardar cambios
+            // guardar cambios
             await _context.Stations.AddAsync(StationRequest);
             await _context.SaveChangesAsync();
 
@@ -74,7 +74,6 @@ namespace stationService.src.Repository
         public async Task<List<ResponseStationDto>> GetStations()
         {
 
-            //Buscar en la base de datos de prueba
             var Stations = await _context.Stations.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
@@ -90,7 +89,7 @@ namespace stationService.src.Repository
         //Get by Id de estaciones
         public async Task<ResponseStationDto> GetStationById(Guid ID)
         {
-            //Buscar en la base de datos de prueba
+
             var Station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
 
             if (Station == null)
