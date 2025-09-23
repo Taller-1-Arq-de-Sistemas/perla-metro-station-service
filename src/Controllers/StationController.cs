@@ -53,11 +53,11 @@ namespace stationService.src.Controllers
 
 
         [HttpGet("Stations")]
-        public async Task<IActionResult> GetStations()
+        public async Task<IActionResult> GetStations([FromQuery] string? Name, [FromQuery] string? Type, [FromQuery] bool? State)
         {
             try
             {
-                var Stations = await _stationRepository.GetStations();
+                var Stations = await _stationRepository.GetStations(Name, Type, State);
 
                 var response = new
                 {

@@ -10,7 +10,7 @@ namespace stationService.src.Interface
     {
         public Task<ResponseStationDto> CreateStation(CreateStationDto request);
 
-        public Task<List<ResponseStationDto>> GetStations();
+        public Task<List<ResponseStationDto>> GetStations(string? Name, string? Type, bool? State);
 
         public Task<ResponseStationDto> GetStationById(Guid ID);
 

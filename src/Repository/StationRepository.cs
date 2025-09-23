@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using stationService.src.Data;
+using stationService.src.Helper;
 using stationService.src.Interface;
 using stationService.src.Mapers;
 using stationService.src.Model;
@@ -71,10 +72,13 @@ namespace stationService.src.Repository
 
 
         //Get de estaciones
-        public async Task<List<ResponseStationDto>> GetStations()
+        public async Task<List<ResponseStationDto>> GetStations(string? Name, string? Type, bool? State)
         {
+            var query = _context.Stations.AsQueryable();
 
-            var Stations = await _context.Stations.Select(s => s.ToStationResponse()).ToListAsync();
+            query = StationFilterHelper.Filters(query, Name, Type, State);
+
+            var Stations = await query.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
             {
