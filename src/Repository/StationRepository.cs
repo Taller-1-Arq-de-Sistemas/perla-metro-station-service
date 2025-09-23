@@ -15,7 +15,7 @@ namespace stationService.src.Repository
 {
     public class StationRepository : IStationRepository
     {
-        //DbContext dedicado para operaciones de testing
+        
         private readonly DBContext _context;
 
         public StationRepository(DBContext context)
@@ -144,7 +144,7 @@ namespace stationService.src.Repository
         }
 
 
-        //SoftDelete (Desactivar/Activar), solo administradores
+        //SoftDelete (Desactivar/Activar)
         public async Task DisabledEnabledStation(Guid ID)
         {
             var Station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID);
@@ -154,7 +154,7 @@ namespace stationService.src.Repository
                 throw new Exception("Error. Estacion no encontrada");
             }
 
-            //Actualizar en base de datos de prueba
+
             Station.State = !Station.State;
             _context.Update(Station);
             await _context.SaveChangesAsync();
