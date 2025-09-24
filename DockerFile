@@ -1,15 +1,29 @@
+# Imagen base del SDK de .NET 8 para compilar la aplicación
 FROM mcr.microsoft.com/dotnet/sdk:8.0@sha256:35792ea4ad1db051981f62b313f1be3b46b1f45cadbaa3c288cd0d3056eefb83 AS build
+
+# Directorio de trabajo dentro del contenedor para la compilacion
 WORKDIR /App
 
-# Copy everything
+# Copia todos los archivos del proyecto al contenedor
 COPY . ./
-# Restore as distinct layers
+
+# Restaura las dependencias del proyecto
 RUN dotnet restore
-# Build and publish a release
+
+# Compila y publica la aplicación en modo Release
 RUN dotnet publish -o out
 
-# Build runtime image
+
+# Etapa de ejecución (Runtime)
+
+# Imagen base del runtime de .NET 8 para ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:8.0@sha256:6c4df091e4e531bb93bdbfe7e7f0998e7ced344f54426b7e874116a3dc3233ff
+
+# Directorio de trabajo en el contenedor final
 WORKDIR /App
+
+# Copia los archivos compilados 
 COPY --from=build /App/out .
+
+#ejecuta la aplicación
 ENTRYPOINT ["dotnet", "stationService.dll"]
