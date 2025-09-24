@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using stationService.src.DTO;
 using stationService.src.StationDto;
 
 namespace stationService.src.Interface
@@ -33,7 +34,7 @@ namespace stationService.src.Interface
         /// </summary>
         /// <param name="ID">ID de la estacion</param>
         /// <returns>DTO con la información de la estacion solicitada</returns>
-        public Task<ResponseStationDto> GetStationById(Guid ID);
+        public Task<ResponseStationByIdDto> GetStationById(Guid ID);
 
         /// <summary>
         /// Edita los datos de una estación existente

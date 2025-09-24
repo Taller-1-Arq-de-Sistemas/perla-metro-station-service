@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using stationService.src.Data;
+using stationService.src.DTO;
 using stationService.src.Helper;
 using stationService.src.Interface;
 using stationService.src.Mapers;
@@ -39,17 +40,17 @@ namespace stationService.src.Repository
         /// <returns>DTO con la información de la estacion creada</returns>
         public async Task<ResponseStationDto> CreateStation(CreateStationDto request)
         {
-            
+
             var exist = await _context.Stations.FirstOrDefaultAsync(s => s.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() || s.Location.ToLower().Trim() == request.Location.ToLower().Trim());
 
             if (exist != null)
             {
-               
+
                 if (exist.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim() && exist.Location.ToLower().Trim() == request.Location.ToLower().Trim())
                 {
-                    throw new Exception("Error. Estación ya existente");  
+                    throw new Exception("Error. Estación ya existente");
                 }
-                
+
                 if (exist.NameStation.ToLower().Trim() == request.NameStation.ToLower().Trim())
                 {
                     throw new Exception("Error. Ya existe una estación con este nombre");
@@ -62,18 +63,18 @@ namespace stationService.src.Repository
 
             var StationRequest = new Station
             {
-            
+
                 NameStation = request.NameStation,
                 Location = request.Location,
                 Type = request.Type,
-                State = true 
+                State = true
             };
 
-            
+
             await _context.Stations.AddAsync(StationRequest);
             await _context.SaveChangesAsync();
 
-            
+
             var response = StationRequest.ToStationResponse();
             return response;
         }
@@ -89,10 +90,10 @@ namespace stationService.src.Repository
         {
             var query = _context.Stations.AsQueryable();
 
-            
+
             query = StationFilterHelper.Filters(query, Name, Type, State);
 
-            
+
             var Stations = await query.Select(s => s.ToStationResponse()).ToListAsync();
 
             if (Stations.Count == 0)
@@ -109,7 +110,7 @@ namespace stationService.src.Repository
         /// </summary>
         /// <param name="ID">Identificador único de la estación</param>
         /// <returns>DTO con la informacion de la estacion solicitada</returns>
-        public async Task<ResponseStationDto> GetStationById(Guid ID)
+        public async Task<ResponseStationByIdDto> GetStationById(Guid ID)
         {
             
             var Station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID && s.State == true);
@@ -119,7 +120,7 @@ namespace stationService.src.Repository
                 throw new Exception("Error. Estacion no encontrada");
             }
 
-            var response = Station.ToStationResponse();
+            var response = Station.ToStationByIdResponse();
             return response;
         }
 
