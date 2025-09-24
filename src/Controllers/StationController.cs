@@ -15,7 +15,7 @@ namespace stationService.src.Controllers
     /// Ademas de un cambio de estado implementado 
     /// como soft delete
     /// </summary>
-    [Route("api/Station")]
+    [Route("Station")]
     [ApiController]
     public class StationController : ControllerBase
     {
