@@ -130,9 +130,9 @@ namespace stationService.src.Repository
         /// </summary>
         /// <param name="ID">ID de la estacion a editar</param>
         /// <param name="request">Nuevos datos para actualizar la estacion</param>
-        public async Task EditStation(Guid ID, EditStationDto request)
+        public async Task<ResponseStationDto> EditStation(Guid ID, EditStationDto request)
         {
-            
+
             var station = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID);
 
             if (station == null)
@@ -143,7 +143,7 @@ namespace stationService.src.Repository
             var Name = request.NameStation.ToLower().Trim();
             var Location = request.Location.ToLower().Trim();
 
-            
+
             var exist = await _context.Stations.FirstOrDefaultAsync(s => s.ID != ID && (s.NameStation.ToLower().Trim() == Name || s.Location.ToLower().Trim() == Location));
 
             if (exist != null)
@@ -158,12 +158,17 @@ namespace stationService.src.Repository
                 }
             }
 
-            
+
             station.NameStation = request.NameStation;
             station.Location = request.Location;
             station.Type = request.Type;
-            
+
             await _context.SaveChangesAsync();
+
+            var response = await _context.Stations.FirstOrDefaultAsync(s => s.ID == ID);
+
+            return response!.ToStationResponse();
+           
         }
 
         /// <summary>

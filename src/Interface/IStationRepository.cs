@@ -41,14 +41,14 @@ namespace stationService.src.Interface
         /// </summary>
         /// <param name="ID">ID de la estacion a editar</param>
         /// <param name="request">Nuevos datos para actualizar la estación</param>
-        /// <returns>Tarea que representa la operación asíncrona de edición</returns>
-        public Task EditStation(Guid ID, EditStationDto request);
+        /// <returns>Detalles de estacion editada</returns>
+        public Task<ResponseStationDto> EditStation(Guid ID, EditStationDto request);
 
         /// <summary>
         /// Cambia el estado de una estacion (Activa/Inactiva)
         /// Implementa soft delte reversible
         /// </summary>
-        /// <param name="ID">ID de la estación</param>
+        /// <param name="ID">ID de la estacion</param>
         /// <returns>Tarea que representa la operación asincrona de cambio de estado</returns>
         public Task DisabledEnabledStation(Guid ID);
     }

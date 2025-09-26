@@ -138,11 +138,13 @@ namespace stationService.src.Controllers
                 }
 
             
-                await _stationRepository.EditStation(ID, request);
+                var modifiedStation = await _stationRepository.EditStation(ID, request);
 
                 return Ok(new
                 {
+
                     message = "Estacion Editada con exito",
+                    Estacion = modifiedStation
                 });
             }
             catch (Exception e)
