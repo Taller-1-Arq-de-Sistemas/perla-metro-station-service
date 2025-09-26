@@ -52,7 +52,7 @@ namespace stationService.src.Controllers
                 return Ok(new
                 {
                     message = "Estacion creada con exito",
-                    Station = result
+                    Estacion = result
                 });
             }
             catch (Exception e)
