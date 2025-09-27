@@ -50,7 +50,26 @@ if (app.Environment.IsDevelopment())
 }
 
 
+/// <summary>
+/// Ejecuta las migraciones pendientes y seedea los datos iniciales en la base de datos.
+/// </summary>
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<DBContext>();
+    await context.Database.MigrateAsync();
+
+    await Seeder.SeedData(context);
+}
+
+/// <summary>
+/// Configuracion de middleware para HTTPS y mapeo de controladores
+/// </summary>
 app.UseHttpsRedirection();
 app.MapControllers(); 
+
+/// <summary>
+/// Ejecuta la aplicación
+/// </summary>
 app.Run();
 
