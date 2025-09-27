@@ -7,8 +7,16 @@ using stationService.src.Model;
 
 namespace stationService.src.Data
 {
+    /// <summary>
+    /// Clase responsable de inicializar datos por defecto en la base de datos.
+    /// </summary>
     public class Seeder
     {
+
+        /// <summary>
+        /// Inserta datos iniciales en la base de datos si no existen registros previos en la tabla <c>Stations</c>.
+        /// </summary>
+        /// <param name="context">Instancia del contexto de base de datos <see cref="DBContext"/>.</param>
         public static async Task SeedData(DBContext context)
         {
 
@@ -127,7 +135,7 @@ namespace stationService.src.Data
                         State = false
                     },
 
-                    
+
                 };
 
                 await context.AddRangeAsync(stations);
